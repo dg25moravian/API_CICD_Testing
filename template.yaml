@@ -18,6 +18,10 @@ Resources:
         EndpointConfiguration: EDGE
         Route53:
           HostedZoneId: Z06776181JN8EMX6YTN2B
+      Auth: #new
+        Authorizers: #new 
+          CognitoAuth: #new 
+            UserPoolArn: arn:aws:cognito-idp:us-east-1:936771282063:userpool/us-east-1_KECPsFLON #new, same user pool?
 
   ApiFunction: # Adds a GET method at the root resource via an Api event
     Type: AWS::Serverless::Function
@@ -28,6 +32,8 @@ Resources:
           Properties:
             Path: /dummy
             Method: get
+            Auth: #new
+              Authorizer: CognitoAuth # new
             RestApiId:
               Ref: ApiGatewayApi
       CodeUri: endpoints/ 
@@ -48,3 +54,5 @@ Resources:
         - arn:aws:lambda:us-east-1:936771282063:layer:aoss-imports:2
       Timeout: 15
       Role: arn:aws:iam::936771282063:role/334s25_lambda_execution_opensearch
+
+  #outputs???
